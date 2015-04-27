@@ -1,0 +1,157 @@
+section {
+    height: 100%;
+    margin: 20px 0;
+    width: 100%;
+    display: table;
+}
+.containerBlock {
+    float: left;
+    width: 250px;
+    height: 250px;
+    margin: 5px 10px;
+    text-align: center;
+}
+.containerBlock img {
+    width: 100%;
+}
+.containerBlock input{
+	width: 100%;
+	margin: 5px 0;
+}
+.containerImg > p {
+    background: none repeat scroll 0 0 #242424;
+    margin: 0;
+}
+.containerImg span {
+    color: #e3e3e3;
+    font-size: 20px;
+    letter-spacing: 1px;
+    line-height: 188px;
+    text-transform: uppercase;
+}
+/*
+ * Intro 
+ */
+#intro h1 {
+    color: #444;
+    letter-spacing: 1px;
+    text-align: center;
+    text-shadow: -1px 0 #e3e3e3;
+    text-transform: uppercase;
+}
+#intro span {
+    color: #444;
+    display: block;
+    font-size: 50px;
+    line-height: 480px;
+    margin: auto;
+    text-align: center;
+}
+#intro form {
+    height: 30px;
+    margin: auto;
+    text-align: center;
+    width: 200px;
+}
+#intro img, .ci-main {
+    display: block;
+    height: auto;
+    margin: 0px 50% 0px 0!important;
+    overflow: visible;
+    right: -300px;
+    width: 600px;
+}
+.ci-main img {
+    margin: 0 !important;
+}
+#intro .builderPreview{
+	position: relative;
+	width: 100%;
+	height: 540px;
+}
+#intro #imgBgHolder{
+	z-index: 0;
+	position: absolute;
+}
+#intro #imgPreviewHolder, .ci-main{
+	z-index: 5;
+	position: absolute!important;
+}
+#intro #imgFrameHolder{
+	z-index: 10;
+	position: absolute;
+}
+/* Intro */
+/*
+ * Generator
+ */
+#generator input {
+    border-radius: 10px;
+    letter-spacing: 1px;
+    line-height: 40px;
+    text-transform: uppercase;
+    width: 100%;
+}
+/* Generator */ 
+/*
+ * Sharer
+ */
+#sharer #imgShare {
+    border-radius: 5px;
+    display: block;
+    height: auto;
+    margin: 20px auto;
+    overflow: hidden;
+    right: -300px;
+    width: 600px;
+} 
+#sharer h4 {
+    cursor: pointer;
+    float: left;
+    text-align: center;
+    text-transform: uppercase;
+    width: 50%;
+}
+/* Sharer */ 
+/*
+ * Footer
+ */
+#footer{
+    margin: 20px 0 0 0;
+}
+#footer .container-fluid {
+    background: none repeat scroll 0 0 #242424;
+}
+.copyright {
+    margin: 0;
+}
+.copyright > span {
+    color: #e3e3e3;
+    display: block;
+    font-size: 8px;
+    line-height: 40px;
+    margin: auto;
+    text-align: center;
+} 
+/* Footer */
+/*
+ * Loading
+ */
+.loading {
+    background: none repeat scroll 0 0 black;
+    color: white;
+    height: 100%;
+    margin: auto;
+    opacity: 0.5;
+    position: fixed;
+    text-align: center;
+    top: 0;
+    width: 100%;
+    z-index: 9999;
+}
+.loading i {
+    font-size: 100px;
+    margin-top: 20%;
+    vertical-align: middle;
+}
+/* Loading */  
