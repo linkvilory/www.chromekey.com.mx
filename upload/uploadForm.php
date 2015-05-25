@@ -14,8 +14,20 @@ if(isset($_FILES["filename"]["type"]))
 			}else{
 				$sourcePath = $_FILES["filename"]["tmp_name"]; // Storing source path of the file in a variable
 				$targetPath = "./temp/" . $_FILES["filename"]["name"]; // Target path where file is to be stored
+				$haloPath = "./temp/halo_" . $_FILES["filename"]["name"]; // Target path where file is to be stored
+				if(($_FILES["filename"]["type"] == "image/jpg") || ($_FILES["filename"]["type"] == "image/jpeg")){
+					$haloPath = str_replace(array("jpg", "jpeg"), "png", $haloPath);
+				}
+				
 				move_uploaded_file($sourcePath,$targetPath) ; // Moving Uploaded file
-				echo "./upload/temp/" . $_FILES["filename"]["name"];
+
+				echo shell_exec("./convert " . $targetPath . " -fuzz 20% -transparent Green " . $haloPath);
+				echo shell_exec("./convert " . $haloPath . " -channel rgba -fuzz 12% -transparent '#67D251' " . $haloPath);
+				echo shell_exec("./convert " . $haloPath . " -channel rgba -fuzz 12% -transparent '#70e064' " . $haloPath);
+				echo shell_exec("./convert " . $haloPath . " -channel rgba -fuzz 15% -transparent '#37a729' " . $haloPath);
+				echo shell_exec("./convert " . $haloPath . " -channel rgba -fuzz 15% -transparent '#82e66f' " . $haloPath);
+
+				echo "./upload/" . $haloPath;
 			}
 		}
 	}else{

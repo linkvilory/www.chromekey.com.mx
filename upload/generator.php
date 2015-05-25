@@ -21,6 +21,8 @@ if($y > 0)
 //echo "y: " . $y;
 if(isset($_POST['image']) && $image != "")
 {
+	$image = str_replace("./", "", $image);
+	$image = "./" . $image;
 	$temporary = explode(".", $image);
 	$file_extension = end($temporary);
 	$timeName = str_replace(" ","",str_replace(".","",microtime())) . "." . $file_extension;

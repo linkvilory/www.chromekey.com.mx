@@ -1,3 +1,25 @@
+<?php
+
+if ($handle = opendir('./img/fondos/')) {
+    while (false !== ($entry = readdir($handle))) {
+        if ($entry != "." && $entry != ".." && $entry != ".DS_Store") {
+            $fondos[] = $entry;
+        }
+    }
+    closedir($handle);
+}
+
+if ($handle = opendir('./img/marcos/')) {
+    while (false !== ($entry = readdir($handle))) {
+        if ($entry != "." && $entry != ".." && $entry != ".DS_Store") {
+            $marcos[] = $entry;
+        }
+    }
+    closedir($handle);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -20,32 +42,36 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">ArcherTroy</a>
+      <a class="navbar-brand" href="#"><img src="img/logo.jpg"/></a>
     </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        <li class="active"><a href="#">Generador de Creatividades</a></li>
-		<li class=""><a href="#">Compartir en Redes Sociales</a></li>
-		<li class=""><a href="#">Galería de Imagenes y Descargas</a></li>
+        <li class="active"><a href="generador.php">Generador de Creatividades</a></li>
+		<li class=""><a href="compartir.php">Compartir en Redes Sociales</a></li>
+		<li class=""><a href="galeria.php">Galería de Imagenes y Descargas</a></li>
       </ul>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
-<section id="intro">
+<section id="home">
 
 	<div class="container">
-		<h1>Selecciona tu imagen a modificar</h1>
-		<div class="builderPreview">
-			<img id="imgBgHolder" class="hidden" src="" width="176px" height="219px" />
-			<img id="imgPreviewHolder" class="hidden" src="" width="176px" height="219px" />
-			<img id="imgFrameHolder" class="hidden" src="" width="176px" height="219px" />
-		</div>	
-		<form id="uploadForm" enctype="multipart/form-data" action="./upload/uploadForm.php" method="post">
-			<input name="imgFile" id="imgFile" type="file" name="Selecciona un archivo" />
-			<input type="submit" name="upload" value="Upload" class="hidden" />
-		</form>
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Selecciona tu imagen a modificar</h1>
+                <div class="builderPreview">
+                    <img id="imgBgHolder" class="hidden" src="" width="176px" height="219px" />
+                    <img id="imgPreviewHolder" class="hidden" src="" width="176px" height="219px" />
+                    <img id="imgFrameHolder" class="hidden" src="" width="176px" height="219px" />
+                </div>  
+                <form id="uploadForm" enctype="multipart/form-data" action="./upload/uploadForm.php" method="post">
+                    <input name="imgFile" id="imgFile" type="file" name="Selecciona un archivo" />
+                    <input type="submit" name="upload" value="Upload" class="hidden" />
+                </form>
+            </div>
+        </div>
 	</div>
 
 </section>
@@ -54,35 +80,32 @@
 
 	<div class="container">
 	<h4>Selecciona el fondo de tu preferencia</h4>
-		<div class="containerBlock">
-			<div class="containerImg">
-				<img class="zindex0" src="img/back-building-1.jpg"/>
-			</div>
-			<input class="buildOne" type="button" name="Pickme" value="Pickme" />
-		</div>
 
-		<div class="containerBlock">
-			<div class="containerImg">
-				<img class="zindex0" src="img/back-building-2.jpg"/>
-			</div>
-			<input class="buildTwo" type="button" name="Pickme" value="Pickme" />
-		</div>
+        <?php
 
-		<div class="containerBlock">
-			<div class="containerImg">
-				<img class="zindex0" src="img/back-building-3.jpg"/>
-			</div>
-			<input class="buildThree" type="button" name="Pickme" value="Pickme" />
-		</div>
+            foreach ($fondos as $key => $value) {
+                
+                ?>
+                    <div class="col-md-3">
+                        <div class="containerImg">
+                            <img class="<?php echo $value; ?>" src="img/fondos/<?php echo $value; ?>"/>
+                        </div>
+                        <input class="btnClassicArcher" type="button" name="Escogeme" value="Escogeme" />
+                    </div>
+                <?php
 
-		<div class="containerBlock">
+            }
+
+        ?>
+
+		<div class="col-md-3">
 			<div class="containerImg">
 				<img class="hidden" src=""/>
 				<p>
 					<span>Remover</span>
 				</p>
 			</div>
-			<input class="buildFour" type="button" name="Pickme" value="Pickme" />
+			<input class="btnClassicArcher" type="button" name="Escogeme" value="Escogeme" />
 		</div>
 
 	</div>
@@ -95,29 +118,32 @@
 
 		<h4>Selecciona el marco de tu preferencia</h4>
 
-		<div class="containerBlock">
-			<div class="containerImg">
-				<img class="zindex0" src="img/marco-1.png"/>
-			</div>
-			<input class="buildOne" type="button" name="Pickme" value="Pickme" />
-		</div>
+		<?php
 
-		<div class="containerBlock">
-			<div class="containerImg">
-				<img class="zindex0" src="img/marco-2.png"/>
-			</div>
-			<input class="buildTwo" type="button" name="Pickme" value="Pickme" />
-		</div>
+            foreach ($marcos as $key => $value) {
+                
+                ?>
+                    <div class="col-md-3">
+                        <div class="containerImg">
+                            <img class="<?php echo $value; ?>" src="img/marcos/<?php echo $value; ?>"/>
+                        </div>
+                        <input class="btnClassicArcher" type="button" name="Escogeme" value="Escogeme" />
+                    </div>
+                <?php
 
-		<div class="containerBlock">
-			<div class="containerImg">
-				<img class="hidden" src=""/>
-				<p>
-					<span>Remover</span>
-				</p>
-			</div>
-			<input class="buildThree" type="button" name="Pickme" value="Pickme" />
-		</div>
+            }
+
+        ?>
+
+        <div class="col-md-3">
+            <div class="containerImg">
+                <img class="hidden" src=""/>
+                <p>
+                    <span>Remover</span>
+                </p>
+            </div>
+            <input class="btnClassicArcher" type="button" name="Escogeme" value="Escogeme" />
+        </div>
 
 	</div>
 
@@ -127,7 +153,7 @@
 
 	<div class="container">
 
-		<input id="generator" type="button" name="Generar Imagen" value="Generar Imagen" />
+		<input class="btnClassicArcher" id="generator" type="button" name="Generar" value="Generar" />
 
 	</div>
 
@@ -156,6 +182,7 @@
 $(document).ready(function (e) {
     $('#uploadForm').on('submit',(function(e) {
         e.preventDefault();
+        $(".loading").removeClass("hidden");
         var formData = new FormData(this);
         formData.append("filename", $('#imgFile').get(0).files[0]);
         $.ajax({
@@ -178,11 +205,13 @@ $(document).ready(function (e) {
                 }else{
                 	//console.log("Fatal error");
                 }
+                $(".loading").addClass("hidden");
                 
             },
             error: function(data){
                 //console.log("error");
                 //console.log(data);
+                $(".loading").addClass("hidden");
             }
         });
     }));
