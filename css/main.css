@@ -1,12 +1,4 @@
 @font-face {
-    font-family: "redesFont";
-    src: url(../fonts/redes-webfont.eot);
-    src: url(../fonts/redes-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/redes-webfont.woff2) format("woff2"), url(../fonts/redes-webfont.woff) format("woff"), url(../fonts/redes-webfont.ttf) format("truetype"), url(../fonts/redes-webfont.svg#untitled-font-1) format("svg");
-    font-weight: normal;
-    font-style: normal
-    }
-
-@font-face {
     font-family: "textB";
     src: url(../fonts/Optima-Bold-webfont.eot);
     src: url(../fonts/Optima-Bold-webfont.eot?#iefix) format("embedded-opentype"), url(../fonts/Optima-Bold-webfont.woff2) format("woff2"), url(../fonts/Optima-Bold-webfont.woff) format("woff"), url(../fonts/Optima-Bold-webfont.ttf) format("truetype"), url(../fonts/Optima-Bold-webfont.svg#optimabold) format("svg");
@@ -61,11 +53,11 @@ h1, h4{
     display: block;
     margin: auto;
 } 
-.btnClassicArcher:focus {
+.btnClassicArcher:focus, .btnChooseArcher:focus {
     outline: 0
     }
 
-.btnClassicArcher::before {
+.btnClassicArcher::before, .btnChooseArcher::before {
     content: "";
     position: absolute;
     top: 0;
@@ -91,15 +83,34 @@ h1, h4{
     transition: background-color 0.5s ease 0s;
     vertical-align: middle
     }
-
-.btnClassicArcher:hover {
+.btnChooseArcher{
+    background-color: #ccc;
+    border: medium none;
+    color: white;
+    margin: 5px 0 20px;
+    display: block;
+    font-family: textR;
+    font-size: 18px;
+    letter-spacing: 2px;
+    width: 100%;
+    text-transform: uppercase;
+    position: relative;
+    -moz-transition: background-color 0.5s ease 0s;
+    -o-transition: background-color 0.5s ease 0s;
+    -webkit-transition: background-color 0.5s ease 0s;
+    transition: background-color 0.5s ease 0s;
+    vertical-align: middle
+}
+.btnClassicArcher:hover, .btnChooseArcher:hover {
     background-color: #7F7F7F
     }
 .previewApp{
     max-width: 400px;
     width:100%;
 }
-
+.parsley-error {
+    color: red;
+}
 /* Index.php */
 
 /*
@@ -123,14 +134,15 @@ section {
     height: 100%;
     margin: 20px 0;
     width: 100%;
-    display: table;
 }
-section.full{
-    height:100vh;
-    margin: 0;
-    padding: 20px 0;
+.containerFixed {
+    height: 100%;
+    width: 100%;
 }
 .containerImg img {
+    border: 1px solid #404040;
+    border-radius: 50px;
+    max-width: 600px;
     width: 100%;
 }
 .containerImg > p {
@@ -177,13 +189,12 @@ section.full{
     height: 30px;
     margin: auto;
     text-align: center;
-    width: 200px;
+    width: 320px;
 }
 #home img, .ci-main {
     display: block;
     height: auto;
     margin: 0px 50% 0px 0!important;
-    overflow: visible;
     right: -300px;
     width: 600px;
 }
@@ -210,6 +221,49 @@ section.full{
 	position: absolute;
 }
 /* home */
+/*
+ * Section background
+ */
+#background{
+    background: white none repeat scroll 0 0;
+    border-left: 1px solid #222123;
+    clear: both;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+    position: fixed;
+    right: -20%;
+    top: 0;
+    transition: right 2.5s ease 0s;
+    width: 20%;
+    z-index:999;
+} 
+/* Section background */ 
+.showingSection{
+    right: 0!important;
+
+}
+.containerImg {
+    margin: 0 0 20px;
+}
+/*
+ * Section frame
+ */
+#frame{
+    background: white none repeat scroll 0 0;
+    border-left: 1px solid #222123;
+    clear: both;
+    height: 100%;
+    margin: 0;
+    overflow-y: scroll;
+    position: fixed;
+    right: -20%;
+    top: 0;
+    transition: right 2.5s ease 0s;
+    width: 20%;
+    z-index:999;
+} 
+/* Section frame */ 
 /*
  * Generator
  */
@@ -240,24 +294,25 @@ section.full{
 /*
  * Footer
  */
-#footer{
+#footer {
+    bottom: 0;
+    left: 0;
     margin: 0;
-}
-#footer .container-fluid {
-    background: none repeat scroll 0 0 #242424;
+    position: fixed;
+    height: auto;
 }
 .copyright {
     margin: 0;
     padding: 20px 20px 5px;
 }
 .copyright > span {
-    color: #e3e3e3;
+    color: #212223;
     display: block;
     font-family: textB;
     font-size: 8px;
     line-height: 8px;
     margin: auto;
-    text-align: right;
+    text-align: left;
 }
 /* Footer */
 /*
@@ -281,3 +336,45 @@ section.full{
     vertical-align: middle;
 }
 /* Loading */  
+/*
+ * Preview
+ */
+.header{
+    margin-bottom: 60px;
+}
+.share, .shortlink{
+    margin-bottom: 40px;
+    font-size: 2em;
+}
+.principalImg{
+    max-width: 600px;
+    width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
+}
+
+.qrcodeImg{
+    max-width: 123px;
+    width: 100%;
+    display: block;
+    margin: 0 auto 30px;
+    height:auto;
+}
+
+.redes, .website{
+    text-align: center;
+    color: black;
+}
+
+.mailing{
+    margin-top: 60px;
+}
+/* Preview */ 
+
+@media screen and (max-width: 480px){
+    #background, #frame{
+        width: 50%;
+        right: -50%;
+    }
+}

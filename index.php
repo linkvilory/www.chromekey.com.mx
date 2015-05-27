@@ -53,6 +53,18 @@ include_once("config.inc");
 
 </section>
 
+<section id="footer">
+
+	<div class="container-fluid">
+
+		<p class="copyright">
+			<span><?php echo APP_COPYRIGHT; ?></span>
+		</p>
+
+	</div>
+
+</section>
+
 <script type="text/javascript" src="./js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
 <script type="text/javascript">

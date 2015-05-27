@@ -1,4 +1,6 @@
 <?php
+session_start();
+include_once("config.inc");
 
 if ($handle = opendir('./img/fondos/')) {
     while (false !== ($entry = readdir($handle))) {
@@ -42,16 +44,8 @@ if ($handle = opendir('./img/marcos/')) {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#"><img src="img/logo.jpg"/></a>
+      <a class="navbar-brand" href="alfa.php"><img src="img/logo.jpg"/></a>
     </div>
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="generador.php">Generador de Creatividades</a></li>
-		<li class=""><a href="compartir.php">Compartir en Redes Sociales</a></li>
-		<li class=""><a href="galeria.php">Galería de Imagenes y Descargas</a></li>
-      </ul>
-    </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
 
@@ -60,7 +54,7 @@ if ($handle = opendir('./img/marcos/')) {
 	<div class="container">
         <div class="row">
             <div class="col-md-12">
-                <h1>Selecciona tu imagen a modificar</h1>
+                <h1><?php echo BETA_TITLE; ?></h1>
                 <div class="builderPreview">
                     <img id="imgBgHolder" class="hidden" src="" width="176px" height="219px" />
                     <img id="imgPreviewHolder" class="hidden" src="" width="176px" height="219px" />
@@ -78,19 +72,19 @@ if ($handle = opendir('./img/marcos/')) {
 
 <section id="background">
 
-	<div class="container">
-	<h4>Selecciona el fondo de tu preferencia</h4>
+	<div class="containerFixed">
+	<h4><?php echo BETA_FONDOS_TITLE; ?></h4>
 
         <?php
 
             foreach ($fondos as $key => $value) {
                 
                 ?>
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="containerImg">
                             <img class="<?php echo $value; ?>" src="img/fondos/<?php echo $value; ?>"/>
                         </div>
-                        <input class="btnClassicArcher" type="button" name="Escogeme" value="Escogeme" />
+                        <input class="btnChooseArcher" type="button" name="Escogeme" value="Escogeme" />
                     </div>
                 <?php
 
@@ -98,14 +92,14 @@ if ($handle = opendir('./img/marcos/')) {
 
         ?>
 
-		<div class="col-md-3">
+		<div class="col-md-12">
 			<div class="containerImg">
 				<img class="hidden" src=""/>
 				<p>
 					<span>Remover</span>
 				</p>
 			</div>
-			<input class="btnClassicArcher" type="button" name="Escogeme" value="Escogeme" />
+			<input class="btnChooseArcher" type="button" name="Escogeme" value="Escogeme" />
 		</div>
 
 	</div>
@@ -114,20 +108,20 @@ if ($handle = opendir('./img/marcos/')) {
 
 <section id="frame">
 
-	<div class="container">
+	<div class="containerFixed">
 
-		<h4>Selecciona el marco de tu preferencia</h4>
+		<h4><?php echo BETA_MARCOS_TITLE; ?></h4>
 
 		<?php
 
             foreach ($marcos as $key => $value) {
                 
                 ?>
-                    <div class="col-md-3">
+                    <div class="col-md-12">
                         <div class="containerImg">
                             <img class="<?php echo $value; ?>" src="img/marcos/<?php echo $value; ?>"/>
                         </div>
-                        <input class="btnClassicArcher" type="button" name="Escogeme" value="Escogeme" />
+                        <input class="btnChooseArcher" type="button" name="Escogeme" value="Escogeme" />
                     </div>
                 <?php
 
@@ -135,14 +129,14 @@ if ($handle = opendir('./img/marcos/')) {
 
         ?>
 
-        <div class="col-md-3">
+        <div class="col-md-12">
             <div class="containerImg">
                 <img class="hidden" src=""/>
                 <p>
                     <span>Remover</span>
                 </p>
             </div>
-            <input class="btnClassicArcher" type="button" name="Escogeme" value="Escogeme" />
+            <input class="btnChooseArcher" type="button" name="Escogeme" value="Escogeme" />
         </div>
 
 	</div>
@@ -152,9 +146,19 @@ if ($handle = opendir('./img/marcos/')) {
 <section id="generator">
 
 	<div class="container">
+    
+        <div class="col-md-6">
+            <input class="btnClassicArcher" id="showbacks" type="button" name="Fondos" value="Fondos" />
+        </div>
 
-		<input class="btnClassicArcher" id="generator" type="button" name="Generar" value="Generar" />
-
+        <div class="col-md-6">
+            <input class="btnClassicArcher" id="showframes" type="button" name="Marcos" value="Marcos" />
+        </div>
+    
+        <div class="col-md-12">
+            <input class="btnClassicArcher" id="generatorbtn" type="button" name="Generar" value="Generar" />
+        </div>
+		
 	</div>
 
 </section>
@@ -164,7 +168,7 @@ if ($handle = opendir('./img/marcos/')) {
 	<div class="container-fluid">
 
 		<p class="copyright">
-			<span>&reg;  ARCHER TROY S.A. DE C.V. LOS USUARIOS SE OBLIGAN A CUMPLIR CON LOS TÉRMINOS Y CONDICIONES DEL WEB. MARCA REGISTRADA. DECLARACIÓN DE PRIVACIDAD DE LA INFORMACIÓN DE MÉXICO (55) 55 39 22 72.</span>
+			<span><?php echo APP_COPYRIGHT; ?></span>
 		</p>
 
 	</div>
@@ -172,7 +176,7 @@ if ($handle = opendir('./img/marcos/')) {
 </section>
 
 <div class="loading hidden">
-<i class="fa fa-circle-o-notch fa-spin fa-6"></i>
+	<i class="fa fa-circle-o-notch fa-spin fa-6"></i>
 </div>
 
 <script type="text/javascript" src="./js/jquery-1.11.2.min.js"></script>
@@ -242,7 +246,7 @@ $(document).ready(function (e) {
     	}
     });
 
-    $("#generator").click(function(e){
+    $("#generatorbtn").click(function(e){
     	e.preventDefault();
         $(".loading").removeClass("hidden");
     	var image = $("#imgPreviewHolder").attr("src");
@@ -261,7 +265,7 @@ $(document).ready(function (e) {
 			//console.log("success");
             //console.log(data);
             $(".loading").addClass("hidden");
-            window.open(data, '_blank');
+            window.open("gama.php", '_self');
 		});
 
     });
@@ -274,7 +278,25 @@ $(document).ready(function (e) {
     	window.location = "https://twitter.com/home?status=Archertroy%20Awesomeness";
     });
 
-    
+    $("#showbacks").click(function(){
+        if($("#background").hasClass("showingSection"))
+        {
+            $("#background").removeClass("showingSection");
+        }else{
+            $("#background").addClass("showingSection");
+            $("#frame").removeClass("showingSection");
+        }
+    });
+
+    $("#showframes").click(function(){
+        if($("#frame").hasClass("showingSection")){
+            $("#frame").removeClass("showingSection");
+        }else{
+            $("#background").removeClass("showingSection");
+            $("#frame").addClass("showingSection");
+        }
+        
+    });
 
 });
 </script>

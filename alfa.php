@@ -1,6 +1,9 @@
 <?php
+session_start();
+session_destroy();
 
 include_once("config.inc");
+
 
 ?>
 
@@ -12,11 +15,25 @@ include_once("config.inc");
 <link href="./css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
 <link href="./css/font-awesome.min.css" type="text/css" rel="stylesheet"/>
 <link href="./css/main.css" type="text/css" rel="stylesheet"/>
-<link href="./css/cropimg.css" type="text/css" rel="stylesheet"/>
 </head>
 <body>
 
-<section class="full" id="obtener">
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="alfa.php"><img src="img/logo.jpg"/></a>
+    </div>
+  </div><!-- /.container-fluid -->
+</nav>
+
+<section id="obtener">
 
 	<div class="container">
         <div class="row">
@@ -29,12 +46,12 @@ include_once("config.inc");
         <div class="row">
             <div class="col-md-6 col-md-offset-3">
 
-            <form id="registro" action="" method="post">
-                <input id="nombre" class="inputText" type="text" name="nombre" placeholder="Nombre" minlength="5" required=""/>
-                <input id="edad" class="inputText" type="number" name="edad" placeholder="Edad" minlength="2" required=""/>
-                <input id="correo" class="inputText" type="email" name="correo" placeholder="Correo" required=""/>
+            <form id="registro" action="" method="post" data-parsley-errors-messages-disabled>
+                <input id="nombre" class="inputText" type="text" name="nombre" placeholder="Nombre" minlength="6" required />
+                <input id="edad" class="inputText" type="number" name="edad" placeholder="Edad" minlength="2" data-parsley-type="digits" required/>
+                <input id="correo" class="inputText" type="email" name="correo" placeholder="Correo" required data-parsley-type="email" />
 
-                <input type="button" name="alfaEnviar" id="alfaEnviar" value="Enviar" class="btnClassicArcher"/>
+                <input type="submit" name="alfaEnviar" id="alfaEnviar" value="Enviar" class="btnClassicArcher"/>
             </form>
 
             </div>
@@ -61,37 +78,44 @@ include_once("config.inc");
 
 <script type="text/javascript" src="./js/jquery-1.11.2.min.js"></script>
 <script type="text/javascript" src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/jquery.validate.js"></script>
+<script type="text/javascript" src="./js/parsley.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function (e) {
+    jQuery.noConflict();
+    if(jQuery("#registro").length){
+		jQuery('#registro').parsley();
+	}
+
+	jQuery("#registro").submit(function(e){
+		e.preventDefault();
+		return false;
+	});
     
-    
-    $("#registro").validate({
-        submitHandler: function(form) {
-            // do other things for a valid form
-            form.submit();
+    jQuery("#alfaEnviar").click(function(){
+        if(jQuery('#registro').parsley().isValid()){
+        	console.log("Excelente es valido");
+        	jQuery(".loading").addClass("hidden");
+        	var nombre = jQuery("#nombre").val();
+        	var edad = jQuery("#edad").val();
+        	var correo = jQuery("#correo").val();
+        	jQuery.ajax({
+	            method: "POST",
+	            url: "./upload/data/data.php",
+	            data: { nombre: nombre, edad: edad, correo: correo }
+	        })
+	        .done(function( data ) {
+	            //console.log("success");
+	            //console.log(data);
+	            jQuery(".loading").addClass("hidden");
+	            if(data == 0){
+	            	window.open("beta.php", '_self');
+	            }
+	            
+	        });
+        }else{
+        	console.log("Espera, hubo un error. Estamos verificando.");
         }
-    });
-
-    $("#alfaEnviar").click(function(){
-        
-        /*
-
-        $.ajax({
-            method: "POST",
-            url: "./upload/generator.php",
-            data: { image: image, bg: bg, frame: frame, x: x, y: y, w: w, h: h }
-        })
-        .done(function( data ) {
-            //console.log("success");
-            //console.log(data);
-            $(".loading").addClass("hidden");
-            window.open(data, '_blank');
-        });
-
-        */
-
     });
 
 });

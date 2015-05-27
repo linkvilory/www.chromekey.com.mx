@@ -250,6 +250,7 @@
      * @var jQuery
      */
     document.CI_IMAGE_CONTAINER = null;
+    document.CI_IMAGE_CONTAINER_CONTROL = null;
     
     /**
      * Obiekt z danymi na temat kontenera obrazka.
@@ -305,12 +306,14 @@
         // Tworzymy główny kontener na aplikację
         document.CI_IMAGE.wrap($('<div />', {'class':'ci-main','id':'ci-main-'+document.CI_MT,'style':'max-width:'+options.resultWidth+'px'}));
         document.CI_MAIN_CONTAINER = $('.ci-main#ci-main-'+document.CI_MT);
+        document.CI_IMAGE_CONTAINER_CONTROL = $('.ci-tool-left.ci-zoomingControlers');
         
         // Tworzymy kontener bezpośrednio na zdjęcie
         document.CI_IMAGE.wrap($('<div />', {'class':'ci-image-wrapper','id':'ci-image-wrapper-'+document.CI_MT,'style':'max-width:'+options.resultWidth+'px;height:'+options.resultHeight+'px'}));
         document.CI_IMAGE_CONTAINER = $('.ci-image-wrapper#ci-image-wrapper-'+document.CI_MT);
         
         // Kontener na "przybliż - oddal"
+        document.CI_MAIN_CONTAINER.append($('<div />', {'class':'ci-tool-left ci-zoomingControlers'}));
         document.CI_MAIN_CONTAINER.append($('<div />', {'class':'ci-tool ci-zooming'}));
       },
       /**
@@ -322,6 +325,11 @@
         document.CI_MAIN_CONTAINER.find('.ci-tool.ci-zooming')
           .append($('<a />', {'title':options.textBtnTipZoomIn,'href':'#','class':'ci-button ci-tool-zoomin'}).click(function(){return false;}))
           .append($('<a />', {'title':options.textBtnTipZoomOut,'href':'#','class':'ci-button ci-tool-zoomout'}).click(function(){return false;}));
+        document.CI_MAIN_CONTAINER.find('.ci-button.ci-tool-zoomin')
+          .append($('<i />', {'class':'fa fa-plus'}));
+        document.CI_MAIN_CONTAINER.find('.ci-button.ci-tool-zoomout')
+          .append($('<i />', {'class':'fa fa-minus'}));
+
       },
       /**
        * Rysuje buttony przesuwania zdjęcia do krawędzi i rogów kontenera.
@@ -329,7 +337,7 @@
        * @return void
        */
       drawFixingPositionButtons: function() {
-        document.CI_IMAGE_CONTAINER
+        document.CI_MAIN_CONTAINER.find('.ci-tool-left.ci-zoomingControlers')
           .append($('<a />', {'title':options.textBtnTipFPTL,'href':'#','class':'ci-fixing-position ci-fptl'}).click(function(){return false;}))
           .append($('<a />', {'title':options.textBtnTipFPTC,'href':'#','class':'ci-fixing-position ci-fptc'}).click(function(){return false;}))
           .append($('<a />', {'title':options.textBtnTipFPTR,'href':'#','class':'ci-fixing-position ci-fptr'}).click(function(){return false;}))
@@ -349,6 +357,11 @@
         document.CI_MAIN_CONTAINER.find('.ci-tool.ci-zooming')
           .append($('<a />', {'title':options.textBtnTipRTW,'href':'#','class':'ci-fixing-size ci-fsw'}).click(function(){return false;}))
           .append($('<a />', {'title':options.textBtnTipRTH,'href':'#','class':'ci-fixing-size ci-fsh'}).click(function(){return false;}));
+
+        document.CI_MAIN_CONTAINER.find('.ci-fixing-size.ci-fsw')
+          .append($('<i />', {'class':'fa fa-arrows-h'}));
+        document.CI_MAIN_CONTAINER.find('.ci-fixing-size.ci-fsh')
+          .append($('<i />', {'class':'fa fa-arrows-v'}));  
       },
       onResize: function(e) {
         /**
@@ -590,7 +603,7 @@
        */
       bindFixingButtons: function() {
         // Top left
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fptl').mouseup(function() {
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fptl').mouseup(function() {
           document.CI_IMAGE.css({'top':'0px','left':'0px'});
           document.CI_CURRENT_VARS.x = 0;
           document.CI_CURRENT_VARS.y = 0;
@@ -598,7 +611,7 @@
         });
         
         // Top center
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fptc').mouseup(function() {        
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fptc').mouseup(function() {        
           var left = -((document.CI_IMAGE_DATA.width / 2) - (document.CI_IMAGE_CONTAINER_DATA.width / 2));
           document.CI_IMAGE.css({'top':'0px','left':left+'px'});
           document.CI_CURRENT_VARS.x = 0;
@@ -607,7 +620,7 @@
         });
         
         // Top right
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fptr').mouseup(function() {
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fptr').mouseup(function() {
           var left = -(document.CI_IMAGE_DATA.width - document.CI_IMAGE_CONTAINER_DATA.width);
           document.CI_IMAGE.css({'top':'0px','left':left+'px'});
           document.CI_CURRENT_VARS.x = 0;
@@ -616,7 +629,7 @@
         });
         
         // Center left
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fpcl').mouseup(function() {
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fpcl').mouseup(function() {
           var top = -((document.CI_IMAGE_DATA.height / 2) - (document.CI_IMAGE_CONTAINER_DATA.height / 2));
           document.CI_IMAGE.css({'top':top+'px','left':'0px'});
           document.CI_CURRENT_VARS.x = 0;
@@ -625,7 +638,7 @@
         });
         
         // Center center
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fpcc').mouseup(function() {
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fpcc').mouseup(function() {
           var top   = -((document.CI_IMAGE_DATA.height / 2) - (document.CI_IMAGE_CONTAINER_DATA.height / 2));
           var left  = -((document.CI_IMAGE_DATA.width / 2) - (document.CI_IMAGE_CONTAINER_DATA.width / 2));
           document.CI_IMAGE.css({'top':top+'px','left':left+'px'});
@@ -635,7 +648,7 @@
         });
         
         // Center right
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fpcr').mouseup(function() {
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fpcr').mouseup(function() {
           var top   = -((document.CI_IMAGE_DATA.height / 2) - (document.CI_IMAGE_CONTAINER_DATA.height / 2));
           var left  = -(document.CI_IMAGE_DATA.width - document.CI_IMAGE_CONTAINER_DATA.width);
           document.CI_IMAGE.css({'top':top+'px','left':left+'px'});
@@ -645,7 +658,7 @@
         });
         
         // Bottom left
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fpbl').mouseup(function() {
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fpbl').mouseup(function() {
           var top = -(document.CI_IMAGE_DATA.height - document.CI_IMAGE_CONTAINER_DATA.height);
           document.CI_IMAGE.css({'top':top+'px','left':'0px'});
           document.CI_CURRENT_VARS.x = 0;
@@ -654,7 +667,7 @@
         });
         
         // Bottom center
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fpbc').mouseup(function() {
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fpbc').mouseup(function() {
           var top   = -(document.CI_IMAGE_DATA.height - document.CI_IMAGE_CONTAINER_DATA.height);
           var left  = -((document.CI_IMAGE_DATA.width / 2) - (document.CI_IMAGE_CONTAINER_DATA.width / 2));
           document.CI_IMAGE.css({'top':top+'px','left':left+'px'});
@@ -664,7 +677,7 @@
         });
         
         // Bottom right
-        document.CI_IMAGE_CONTAINER.find('.ci-fixing-position.ci-fpbr').mouseup(function() {
+        document.CI_IMAGE_CONTAINER_CONTROL.find('.ci-fixing-position.ci-fpbr').mouseup(function() {
           var top   = -(document.CI_IMAGE_DATA.height - document.CI_IMAGE_CONTAINER_DATA.height);
           var left  = -(document.CI_IMAGE_DATA.width - document.CI_IMAGE_CONTAINER_DATA.width);
           document.CI_IMAGE.css({'top':top+'px','left':left+'px'});
