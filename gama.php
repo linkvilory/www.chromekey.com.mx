@@ -1,5 +1,6 @@
 <?php
 session_start();
+include_once("config.inc");
 
 $data = $_GET["data"];
 $shorturl = $_SESSION["shorturl"];
@@ -42,7 +43,7 @@ $img = $_SESSION["img"];
                 
             	<div class="col-md-12 header">
 
-					<h1>Preview</h1>
+					<h1><?php echo GAMA_TITLE; ?></h1>
 
 				</div>
 
@@ -86,7 +87,7 @@ $img = $_SESSION["img"];
 	<div class="container-fluid">
 
 		<p class="copyright">
-			<span>&reg;  ARCHER TROY S.A. DE C.V.</span>
+			<span><?php echo APP_COPYRIGHT; ?></span>
 		</p>
 
 	</div>

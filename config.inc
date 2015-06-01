@@ -54,6 +54,15 @@ DEFINE(BETA_TITLE, "Selecciona una imagen");
 DEFINE(BETA_FONDOS_TITLE, "Fondos");
 DEFINE(BETA_MARCOS_TITLE, "Marcos");
 
+/*
+ * Preview Configuration
+ */
+DEFINE(GAMA_TITLE, "Preview");
+
+/*
+ * Galeria Configuration
+ */
+DEFINE(GALERIA_TITLE, "Galeria");
 
 /*
  * Mailing Configuration

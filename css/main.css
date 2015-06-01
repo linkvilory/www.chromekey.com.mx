@@ -372,6 +372,27 @@ section {
 }
 /* Preview */ 
 
+/*
+ * Galeria
+ */
+.box-gal {
+    margin-bottom: 40px;
+} 
+.headerImg {
+    font-family: titleB;
+    text-align: center;
+    text-transform: uppercase;
+}
+.detailImg {
+    font-family: textB;
+    text-align: center;
+    text-transform: uppercase;
+}
+.galImg {
+    max-width: 300px;
+    width: 100%;
+}
+/* Galeria */ 
 @media screen and (max-width: 480px){
     #background, #frame{
         width: 50%;

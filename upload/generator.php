@@ -8,7 +8,7 @@ $username = DB_USERNAME;
 $password = DB_PASSWORD;
 $dbname = DB_DBNAME;
 $tablename = DB_TABLE;
-$websitename = WB_SITENAME
+$websitename = WB_SITENAME;
 
 $image = $_POST['image'];
 $bg = "../".$_POST['bg'];
